@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const registerSchema = z
+export const registerFormSchema = z
   .object({
     username: z.string().min(4).max(100),
     password: z.string().min(6).max(250),
@@ -17,4 +17,4 @@ export const registerSchema = z
     { path: ['passwordConfirmation'], message: 'Passwords does not match' }
   );
 
-export type RegisterSchemaType = z.infer<typeof registerSchema>;
+export type RegisterFormSchemaType = z.infer<typeof registerFormSchema>;
