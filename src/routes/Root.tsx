@@ -5,7 +5,9 @@ export default function Root() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <main className="container mx-auto p-10">
+        <Outlet />
+      </main>
     </>
   );
 }
