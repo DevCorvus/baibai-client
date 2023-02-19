@@ -4,8 +4,14 @@ import {
   RegisterFormSchemaType,
   registerFormSchema,
 } from './registerForm.schema';
+import { useRegisterMutation } from '../../services/auth/auth.service';
+import { useNavigate } from 'react-router';
+import { toast } from 'react-hot-toast';
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
+  const mutation = useRegisterMutation();
+
   const {
     register,
     handleSubmit,
@@ -14,8 +20,16 @@ export default function RegisterForm() {
     resolver: zodResolver(registerFormSchema),
   });
 
-  const onSubmit: SubmitHandler<RegisterFormSchemaType> = (data) =>
-    console.log(data);
+  const onSubmit: SubmitHandler<RegisterFormSchemaType> = (data) => {
+    mutation.mutate(data, {
+      onSuccess: () => {
+        toast.success('Account created successfully');
+        navigate('/login', {
+          state: { username: data.username },
+        });
+      },
+    });
+  };
 
   return (
     <form
@@ -82,7 +96,13 @@ export default function RegisterForm() {
           </label>
         )}
       </div>
-      <button type="submit" className="btn btn-primary btn-block mt-4">
+      <button
+        type="submit"
+        disabled={mutation.isLoading}
+        className={`btn btn-primary btn-block mt-4 ${
+          mutation.isLoading ? 'loading' : ''
+        }`}
+      >
         Create account
       </button>
     </form>

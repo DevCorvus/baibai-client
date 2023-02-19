@@ -8,6 +8,25 @@ import ProductList from './routes/ProductList';
 import ProductDetails from './routes/ProductDetails';
 import Login from './routes/Login';
 import Register from './routes/Register';
+import {
+  MutationCache,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import { toast } from 'react-hot-toast';
+
+const queryClient = new QueryClient({
+  mutationCache: new MutationCache({
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message || error.message, {
+          position: 'bottom-left',
+        });
+      }
+    },
+  }),
+});
 
 const router = createBrowserRouter([
   {
@@ -41,6 +60,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );
