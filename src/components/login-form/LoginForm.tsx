@@ -2,11 +2,14 @@ import { FormEvent } from 'react';
 import { useLoginMutation } from '../../services/auth/auth.service';
 import { useNavigate, useLocation } from 'react-router';
 import { toast } from 'react-hot-toast';
+import { useAuthStore } from '../../stores/auth.store';
 
 export default function LoginForm() {
   const location = useLocation();
   const navigate = useNavigate();
   const mutation = useLoginMutation();
+
+  const login = useAuthStore((state) => state.login);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -21,8 +24,7 @@ export default function LoginForm() {
         { username, password },
         {
           onSuccess: (data) => {
-            localStorage.setItem('access_token', data.access_token);
-            localStorage.setItem('refresh_token', data.refresh_token);
+            login(data);
 
             toast.success(`Welcome ${username}!`);
 

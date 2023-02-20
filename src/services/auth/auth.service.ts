@@ -1,5 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '../../lib/axios';
+import { REFRESH_TOKEN_KEYWORD } from '../../config/constants';
 
 interface UserDto {
   username: string;
@@ -16,7 +17,7 @@ export function useRegisterMutation() {
   });
 }
 
-interface JwtPayload {
+export interface JwtPayload {
   access_token: string;
   refresh_token: string;
 }
@@ -30,5 +31,23 @@ export function useLoginMutation() {
       );
       return data;
     },
+  });
+}
+
+export function useAuthRefreshQuery() {
+  return useQuery({
+    queryKey: ['authRefresh'],
+    queryFn: async () => {
+      const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEYWORD);
+
+      if (!refreshToken) return null;
+
+      const { data } = await axiosInstance.post<JwtPayload>('/auth/refresh', {
+        refresh_token: refreshToken,
+      });
+
+      return data;
+    },
+    retry: false,
   });
 }

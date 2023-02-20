@@ -1,8 +1,34 @@
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/navbar/Navbar';
+import { useAuthRefreshQuery } from '../services/auth/auth.service';
+import AppLoading from '../components/AppLoading';
+import AppError from '../components/AppError';
+import { useAuthStore } from '../stores/auth.store';
 
 export default function Root() {
+  const { data, isLoading, isError } = useAuthRefreshQuery();
+  const { login, logout } = useAuthStore((state) => ({
+    login: state.login,
+    logout: state.logout,
+  }));
+
+  useEffect(() => {
+    if (data) {
+      login(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (isError) {
+      logout();
+    }
+  }, [isError]);
+
+  if (isLoading) return <AppLoading />;
+  if (isError) return <AppError />;
+
   return (
     <>
       <Navbar />
