@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Root from './routes/Root';
-import NotFound from './routes/NotFound';
-import ProductList from './routes/ProductList';
-import ProductDetails from './routes/ProductDetails';
-import Login from './routes/Login';
-import Register from './routes/Register';
+import RootPage from './pages/RootPage';
+import NotFoundPage from './pages/NotFoundPage';
+import ProductListPage from './pages/ProductListPage';
+import ProductDetailsPage from './pages/ProductDetailsPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import {
   MutationCache,
   QueryClient,
@@ -31,28 +31,28 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
-    errorElement: <NotFound />,
+    element: <RootPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: '',
-        element: <ProductList />,
+        element: <ProductListPage />,
       },
       {
         path: 'products',
-        element: <ProductList />,
+        element: <ProductListPage />,
       },
       {
         path: 'products/:id',
-        element: <ProductDetails />,
+        element: <ProductDetailsPage />,
       },
       {
         path: 'login',
-        element: <Login />,
+        element: <LoginPage />,
       },
       {
         path: 'register',
-        element: <Register />,
+        element: <RegisterPage />,
       },
     ],
   },

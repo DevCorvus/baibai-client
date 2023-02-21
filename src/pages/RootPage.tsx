@@ -7,7 +7,7 @@ import AppLoading from '../components/AppLoading';
 import AppError from '../components/AppError';
 import { useAuthStore } from '../stores/auth.store';
 
-export default function Root() {
+export default function RootPage() {
   const { data, isLoading, isError } = useAuthRefreshQuery();
   const { login, logout } = useAuthStore((state) => ({
     login: state.login,
