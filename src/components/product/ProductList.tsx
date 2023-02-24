@@ -1,5 +1,5 @@
 import { Product } from '../../interfaces/product';
-import ProductItem from '../product-item/ProductItem';
+import ProductItem from './ProductItem';
 
 interface ProductListInterface {
   products: Product[];

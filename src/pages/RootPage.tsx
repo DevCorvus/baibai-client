@@ -3,8 +3,8 @@ import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/navbar/Navbar';
 import { useAuthRefreshQuery } from '../services/auth/auth.service';
-import AppLoading from '../components/AppLoading';
-import AppError from '../components/AppError';
+import AppLoading from '../components/states/AppLoading';
+import AppError from '../components/states/AppError';
 import { useAuthStore } from '../stores/auth.store';
 
 export default function RootPage() {

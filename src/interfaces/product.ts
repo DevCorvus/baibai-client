@@ -2,13 +2,21 @@ export type ProductStatus = 'new' | 'like-new' | 'refurbished' | 'secondhand';
 
 export interface Product {
   id: string;
-  userId: string;
   name: string;
   price: number;
   quantity: number;
-  previewImage: string;
   status: ProductStatus;
-  location: string;
+  previewImageUrl: string;
   createdAt: Date;
+}
+
+export interface ProductExtended extends Product {
+  description: string;
+  location: string;
+  userId: string;
+  user: {
+    username: string;
+    createdAt: Date;
+  };
   updatedAt: Date;
 }

@@ -15,7 +15,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-primary">
-      <div className="container mx-auto navbar text-slate-50 flex justify-between">
+      <div className="container mx-auto navbar text-slate-50 flex justify-between flex-wrap">
         <div>
           <Link to={'/'} className="btn btn-ghost text-xl">
             Products
