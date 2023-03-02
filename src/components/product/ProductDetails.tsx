@@ -1,24 +1,33 @@
 import { AiOutlineUser } from 'react-icons/ai';
 import { ProductExtended } from '../../interfaces/product';
 import { TbPhotoOff } from 'react-icons/tb';
-import { HiOutlineCheckCircle } from 'react-icons/hi2';
-import { HiOutlineClock } from 'react-icons/hi2';
-import { HiOutlineCircleStack } from 'react-icons/hi2';
-import { HiOutlineMapPin } from 'react-icons/hi2';
+import {
+  HiOutlineCheckCircle,
+  HiOutlineClock,
+  HiOutlineCircleStack,
+  HiOutlineMapPin,
+  HiShoppingCart,
+  HiTrash,
+} from 'react-icons/hi2';
 import dayjs from 'dayjs';
 import { getStatusText } from '../../utils/getStatusText';
+import { useParams } from 'react-router-dom';
+import { useShoppingCartStore } from '../../stores/shopping-cart.store';
 
-export default function ProductDetails({
-  name,
-  description,
-  price,
-  status,
-  quantity,
-  location,
-  previewImageUrl,
-  createdAt,
-  user,
-}: ProductExtended) {
+export default function ProductDetails(product: ProductExtended) {
+  const params = useParams();
+  const {
+    productAlreadyInShoppingCart,
+    addProductToShoppingCart,
+    removeProductFromShoppingCart,
+  } = useShoppingCartStore((state) => ({
+    productAlreadyInShoppingCart: state.exists(params.id as string),
+    addProductToShoppingCart: state.add,
+    removeProductFromShoppingCart: state.remove,
+  }));
+
+  console.log(productAlreadyInShoppingCart);
+
   return (
     <div className="mx-auto max-w-lg flex flex-col gap-4 p-6 bg-base-100 rounded-md">
       <header>
@@ -27,18 +36,18 @@ export default function ProductDetails({
             <AiOutlineUser className="text-white text-2xl" />
           </div>
           <div className="flex flex-col">
-            <span className="font-medium text-lg">{user.username}</span>
+            <span className="font-medium text-lg">{product.user.username}</span>
             <span className="text-secondary text-sm">
-              {'member since ' + dayjs(user.createdAt).fromNow()}
+              {'member since ' + dayjs(product.user.createdAt).fromNow()}
             </span>
           </div>
         </div>
       </header>
-      {previewImageUrl ? (
+      {product.previewImageUrl ? (
         <img
           className="w-full h-full object-cover object-center rounded-t-md"
-          src={previewImageUrl}
-          alt={name + '(Image)'}
+          src={product.previewImageUrl}
+          alt={product.name + '(Image)'}
         />
       ) : (
         <div className="h-40 flex items-center justify-center bg-slate-100">
@@ -47,36 +56,50 @@ export default function ProductDetails({
       )}
       <section className="flex flex-col gap-2">
         <header className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold">{name}</h3>
+          <h3 className="text-lg font-semibold">{product.name}</h3>
           <span className="font-semibold text-lg px-2 py-0.5 rounded-full bg-primary-content text-primary">
-            {price}$
+            {product.price}$
           </span>
         </header>
-        <p>{description}</p>
+        <p>{product.description}</p>
         <div>
           <span className="block mt-5 mb-3 font-semibold">Details</span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex items-center gap-1">
               <HiOutlineCheckCircle className="text-2xl text-primary" />
-              <span>{getStatusText(status)}</span>
+              <span>{getStatusText(product.status)}</span>
             </div>
             <div className="flex items-center gap-1">
               <HiOutlineCircleStack className="text-2xl text-primary" />
-              <span>{quantity} in stock</span>
+              <span>{product.quantity} in stock</span>
             </div>
             <div className="flex items-center gap-1">
               <HiOutlineClock className="text-2xl text-primary" />
-              <span>Posted {dayjs(createdAt).fromNow()}</span>
+              <span>Posted {dayjs(product.createdAt).fromNow()}</span>
             </div>
             <div className="flex items-center gap-1">
               <HiOutlineMapPin className="text-2xl text-primary" />
-              <span>{location}</span>
+              <span>{product.location}</span>
             </div>
           </div>
         </div>
-        <button className="btn btn-block bg-primary mt-6">
-          Add to the cart
-        </button>
+        {!productAlreadyInShoppingCart ? (
+          <button
+            onClick={() => addProductToShoppingCart(product)}
+            className="btn btn-block bg-primary mt-6 flex gap-2"
+          >
+            <HiShoppingCart className="text-xl" />
+            <span>Add to the cart</span>
+          </button>
+        ) : (
+          <button
+            onClick={() => removeProductFromShoppingCart(product.id)}
+            className="btn btn-block bg-error mt-6 flex gap-2"
+          >
+            <HiTrash className="text-xl" />
+            <span>Remove from shopping cart</span>
+          </button>
+        )}
       </section>
     </div>
   );

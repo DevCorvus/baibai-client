@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../../stores/auth.store';
 import { toast } from 'react-hot-toast';
+import { HiShoppingCart, HiArrowLeftOnRectangle } from 'react-icons/hi2';
 
 export default function Navbar() {
   const { isLoggedIn, logout } = useAuthStore((state) => ({
@@ -23,9 +24,26 @@ export default function Navbar() {
         </div>
         <ul className="menu menu-horizontal">
           {isLoggedIn ? (
-            <li>
-              <button onClick={handleLogout}>Logout</button>
-            </li>
+            <>
+              <li>
+                <Link
+                  to={'/shopping-cart'}
+                  className="tooltip tooltip-bottom"
+                  data-tip="Shopping cart"
+                >
+                  <HiShoppingCart className="text-2xl" />
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="tooltip tooltip-bottom"
+                  data-tip="Logout"
+                >
+                  <HiArrowLeftOnRectangle className="text-2xl" />
+                </button>
+              </li>
+            </>
           ) : (
             <>
               <li>

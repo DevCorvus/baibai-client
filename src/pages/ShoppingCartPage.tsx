@@ -1,3 +1,5 @@
+import ShoppingCartList from '../components/shopping-cart/ShoppingCartList';
+
 export default function ShoppingCartPage() {
-  return <div>ShoppingCart</div>;
+  return <ShoppingCartList />;
 }
