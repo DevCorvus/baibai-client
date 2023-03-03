@@ -2,31 +2,54 @@ import { useEffect, useState } from 'react';
 import { useShoppingCartStore } from '../../stores/shopping-cart.store';
 import ShoppingCartItem from './ShoppingCartItem';
 import { HiShoppingBag } from 'react-icons/hi2';
+import { toast } from 'react-hot-toast';
 
 export default function ShoppingCartList() {
-  const products = useShoppingCartStore((state) => state.data);
+  // Products should be fetched from the API to keep the data in sync
+  // for demonstrative purposes, it will not be done in this case
+  const { items, resetItems } = useShoppingCartStore((state) => ({
+    items: state.data,
+    resetItems: state.reset,
+  }));
   const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
-    const newTotal = products.reduce((_, product, value) => {
-      return value + product.price;
+    const newTotal = items.reduce((_, item, total) => {
+      const priceTimesAmount = item.product.price * item.amount;
+      return total + priceTimesAmount;
     }, 0);
 
     setTotal(newTotal);
-  }, products);
+  }, [items]);
+
+  const handlePurchase = () => {
+    resetItems();
+    toast.success('Successful purchase');
+  };
 
   return (
-    <div className="mx-auto max-w-lg flex flex-col gap-4 p-6 bg-base-100 rounded-md">
-      <div>
-        {products.map((product) => (
-          <ShoppingCartItem key={product.id} {...product} />
-        ))}
-      </div>
-      <span>Total: {total}$</span>
-      <button className="btn btn-accent flex gap-2">
-        <HiShoppingBag className="text-xl" />
-        <span>Confirm purchase</span>
-      </button>
-    </div>
+    <>
+      {items.length ? (
+        <>
+          <div className="flex flex-col gap-2">
+            {items.map((item) => (
+              <ShoppingCartItem key={item.product.id} {...item} />
+            ))}
+          </div>
+          <span className="font-semibold text-lg">Total: {total}$</span>
+          <button
+            onClick={handlePurchase}
+            className="btn btn-accent flex gap-2"
+          >
+            <HiShoppingBag className="text-xl" />
+            <span>Confirm purchase</span>
+          </button>
+        </>
+      ) : (
+        <p className="text-center text-secondary font-medium">
+          Shopping cart empty
+        </p>
+      )}
+    </>
   );
 }

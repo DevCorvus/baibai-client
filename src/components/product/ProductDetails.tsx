@@ -26,8 +26,6 @@ export default function ProductDetails(product: ProductExtended) {
     removeProductFromShoppingCart: state.remove,
   }));
 
-  console.log(productAlreadyInShoppingCart);
-
   return (
     <div className="mx-auto max-w-lg flex flex-col gap-4 p-6 bg-base-100 rounded-md">
       <header>

@@ -15,8 +15,8 @@ export default function ProductList({ products }: ProductListInterface) {
           ))}
         </div>
       ) : (
-        <div className="bg-secondary w-full h-40 rounded-md shadow-md flex justify-center items-center">
-          <p className="text-secondary-content text-lg font-medium">
+        <div className="bg-base-100 p-6 rounded-md max-w-lg mx-auto">
+          <p className="text-center text-secondary font-medium">
             There are no products to show {'.('}
           </p>
         </div>

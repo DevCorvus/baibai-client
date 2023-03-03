@@ -20,3 +20,8 @@ export interface ProductExtended extends Product {
   };
   updatedAt: Date;
 }
+
+export interface ShoppingCartProduct {
+  product: Product;
+  amount: number;
+}

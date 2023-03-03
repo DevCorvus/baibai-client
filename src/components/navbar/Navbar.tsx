@@ -1,18 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../../stores/auth.store';
-import { toast } from 'react-hot-toast';
-import { HiShoppingCart, HiArrowLeftOnRectangle } from 'react-icons/hi2';
+import ShoppingCartLink from './ShoppingCartLink';
+import LogoutButton from './LogoutButton';
 
 export default function Navbar() {
-  const { isLoggedIn, logout } = useAuthStore((state) => ({
-    isLoggedIn: state.isLoggedIn,
-    logout: state.logout,
-  }));
-
-  const handleLogout = () => {
-    logout();
-    toast.success('Logged out successfully');
-  };
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   return (
     <nav className="bg-primary">
@@ -26,22 +18,10 @@ export default function Navbar() {
           {isLoggedIn ? (
             <>
               <li>
-                <Link
-                  to={'/shopping-cart'}
-                  className="tooltip tooltip-bottom"
-                  data-tip="Shopping cart"
-                >
-                  <HiShoppingCart className="text-2xl" />
-                </Link>
+                <ShoppingCartLink />
               </li>
               <li>
-                <button
-                  onClick={handleLogout}
-                  className="tooltip tooltip-bottom"
-                  data-tip="Logout"
-                >
-                  <HiArrowLeftOnRectangle className="text-2xl" />
-                </button>
+                <LogoutButton />
               </li>
             </>
           ) : (
