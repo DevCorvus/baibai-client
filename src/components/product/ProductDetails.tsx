@@ -26,8 +26,10 @@ export default function ProductDetails(product: ProductExtended) {
     removeProductFromShoppingCart: state.remove,
   }));
 
+  // TODO: Create a link to fetch products from a specific username
+  // TODO: Switch "Shopping cart" to "Edit product" when user is the product's owner
   return (
-    <div className="mx-auto max-w-lg flex flex-col gap-4 p-6 bg-base-100 rounded-md">
+    <>
       <header>
         <div className="flex items-center gap-2">
           <div className="p-2 bg-primary rounded-full">
@@ -99,6 +101,6 @@ export default function ProductDetails(product: ProductExtended) {
           </button>
         )}
       </section>
-    </div>
+    </>
   );
 }

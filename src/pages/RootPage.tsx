@@ -14,6 +14,7 @@ export default function RootPage() {
     logout: state.logout,
   }));
 
+  // TODO: Refresh JWT dinamically when expired (probably an Axios middleware)
   useEffect(() => {
     if (data) {
       login(data);
@@ -32,7 +33,7 @@ export default function RootPage() {
   return (
     <>
       <Navbar />
-      <main className="container mx-auto p-10">
+      <main className="container mx-auto p-4 md:p-10">
         <Outlet />
       </main>
       <Toaster />

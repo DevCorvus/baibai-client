@@ -11,12 +11,9 @@ export default function LogoutButton() {
   };
 
   return (
-    <button
-      onClick={handleLogout}
-      className="tooltip tooltip-bottom"
-      data-tip="Logout"
-    >
+    <button onClick={handleLogout}>
       <HiArrowLeftOnRectangle className="text-2xl" />
+      Logout
     </button>
   );
 }

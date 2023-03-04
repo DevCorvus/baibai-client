@@ -1,5 +1,14 @@
 export type ProductStatus = 'new' | 'like-new' | 'refurbished' | 'secondhand';
 
+export interface ProductDto {
+  name: string;
+  description: string;
+  price: string;
+  quantity: number;
+  status: string;
+  location: string;
+}
+
 export interface Product {
   id: string;
   name: string;

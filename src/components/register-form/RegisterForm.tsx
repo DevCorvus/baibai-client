@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   RegisterFormSchemaType,
   registerFormSchema,
-} from './registerForm.schema';
+} from './register-form.schema';
 import { useRegisterMutation } from '../../services/auth/auth.service';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-hot-toast';
