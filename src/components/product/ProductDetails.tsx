@@ -1,6 +1,5 @@
 import { AiOutlineUser } from 'react-icons/ai';
 import { ProductExtended } from '../../interfaces/product';
-import { TbPhotoOff } from 'react-icons/tb';
 import {
   HiOutlineCheckCircle,
   HiOutlineClock,
@@ -13,6 +12,7 @@ import dayjs from 'dayjs';
 import { getStatusText } from '../../utils/getStatusText';
 import { useParams } from 'react-router-dom';
 import { useShoppingCartStore } from '../../stores/shopping-cart.store';
+import ProductImage from './ProductImage';
 
 export default function ProductDetails(product: ProductExtended) {
   const params = useParams();
@@ -43,22 +43,17 @@ export default function ProductDetails(product: ProductExtended) {
           </div>
         </div>
       </header>
-      {product.previewImageUrl ? (
-        <img
-          className="w-full h-full object-cover object-center rounded-t-md"
-          src={product.previewImageUrl}
-          alt={product.name + '(Image)'}
-        />
-      ) : (
-        <div className="h-40 flex items-center justify-center bg-slate-100">
-          <TbPhotoOff className="text-5xl text-slate-400" />
-        </div>
-      )}
+      <ProductImage
+        className="w-full h-full object-cover object-center rounded-t-md"
+        stateHeightClass="h-40"
+        src={product.previewImageUrl}
+        name={product.name}
+      />
       <section className="flex flex-col gap-2">
         <header className="flex justify-between items-center">
           <h3 className="text-lg font-semibold">{product.name}</h3>
           <span className="font-semibold text-lg px-2 py-0.5 rounded-full bg-primary-content text-primary">
-            {product.price}$
+            {product.price === 0 ? 'FREE' : `${product.price}$`}
           </span>
         </header>
         <p>{product.description}</p>

@@ -37,6 +37,7 @@ export function useAddProductMutation() {
         product,
         {
           headers: {
+            'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${localStorage.getItem(
               ACCESS_TOKEN_KEYWORD
             )}`,

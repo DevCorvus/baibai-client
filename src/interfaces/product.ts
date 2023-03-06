@@ -7,6 +7,7 @@ export interface ProductDto {
   quantity: number;
   status: string;
   location: string;
+  image: File;
 }
 
 export interface Product {

@@ -1,8 +1,8 @@
 import { ShoppingCartProduct } from '../../interfaces/product';
 import { HiTrash, HiPlus, HiMinus } from 'react-icons/hi2';
-import { TbPhotoOff } from 'react-icons/tb';
 import { useShoppingCartStore } from '../../stores/shopping-cart.store';
 import { Link } from 'react-router-dom';
+import ProductImage from '../product/ProductImage';
 
 export default function ShoppingCartItem({
   product,
@@ -17,18 +17,13 @@ export default function ShoppingCartItem({
 
   return (
     <div className="border rounded shadow-sm flex">
-      <figure className="w-14">
-        {product.previewImageUrl ? (
-          <img
-            className="w-full h-full object-cover object-center"
-            src={product.previewImageUrl}
-            alt={product.name + '(Image)'}
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-slate-100">
-            <TbPhotoOff className="text-xl text-slate-400" />
-          </div>
-        )}
+      <figure className="w-16 h-16">
+        <ProductImage
+          className="w-full h-full object-cover object-center rounded-l border-r"
+          stateHeightClass="h-16"
+          src={product.previewImageUrl}
+          name={product.name}
+        />
       </figure>
       <div className="w-full p-3 flex items-center justify-between">
         <Link className="link link-hover" to={`/products/${product.id}`}>
@@ -57,7 +52,7 @@ export default function ShoppingCartItem({
             </button>
           </div>
           <span className="w-20 text-center font-semibold">
-            {product.price * amount}$
+            {product.price === 0 ? 'FREE' : `${product.price * amount}$`}
           </span>
           <button
             onClick={() => removeFromShoppingCart(product.id)}

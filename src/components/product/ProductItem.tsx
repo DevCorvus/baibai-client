@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Product } from '../../interfaces/product';
 import { getStatusText } from '../../utils/getStatusText';
-import { TbPhotoOff } from 'react-icons/tb';
 import dayjs from 'dayjs';
+import ProductImage from './ProductImage';
 
 export default function ProductItem({
   id,
@@ -28,17 +28,12 @@ export default function ProductItem({
         </div>
       )}
       <figure className="h-40 overflow-hidden rounded-t-md">
-        {previewImageUrl ? (
-          <img
-            className="w-full h-full object-cover object-center transition group-hover:scale-110 rounded-t-md"
-            src={previewImageUrl}
-            alt={name + '(Image)'}
-          />
-        ) : (
-          <div className="h-full flex items-center justify-center bg-slate-100 transition group-hover:scale-110">
-            <TbPhotoOff className="text-5xl text-slate-400" />
-          </div>
-        )}
+        <ProductImage
+          className="w-full h-full object-cover object-center transition group-hover:scale-110 rounded-t-md"
+          stateHeightClass="h-full"
+          src={previewImageUrl}
+          name={name}
+        />
       </figure>
       <div className="flex justify-between p-4 rounded-b-md">
         <div>
@@ -48,7 +43,9 @@ export default function ProductItem({
           </span>
         </div>
         <div>
-          <span className="font-semibold text-primary">{price}$</span>
+          <span className="font-semibold text-primary">
+            {price === 0 ? 'FREE' : `${price}$`}
+          </span>
           <p className="text-sm text-slate-500">{quantity} in stock</p>
         </div>
       </div>

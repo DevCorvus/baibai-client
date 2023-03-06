@@ -15,6 +15,7 @@ export default function RootPage() {
   }));
 
   // TODO: Refresh JWT dinamically when expired (probably an Axios middleware)
+  // TODO: User profile stored after login
   useEffect(() => {
     if (data) {
       login(data);

@@ -24,14 +24,16 @@ export default function ProductForm({ locations }: ProductFormInterface) {
     resolver: zodResolver(productFormSchema),
   });
 
-  // TODO: Handle file upload
   const onSubmit: SubmitHandler<ProductFormSchemaType> = (data) => {
-    mutation.mutate(data, {
-      onSuccess: (product) => {
-        toast.success('Product created successfully');
-        navigate(`/products/${product.id}`);
-      },
-    });
+    mutation.mutate(
+      { ...data, image: data.image[0] as File },
+      {
+        onSuccess: (product) => {
+          toast.success('Product created successfully');
+          navigate(`/products/${product.id}`);
+        },
+      }
+    );
   };
 
   return (
@@ -44,11 +46,18 @@ export default function ProductForm({ locations }: ProductFormInterface) {
           Image
         </label>
         <input
+          {...register('image')}
           type="file"
           id="image"
-          name="image"
           className="file-input file-input-bordered"
         />
+        {errors.image && (
+          <label className="label">
+            <span className="label-text-alt text-error">
+              {errors.image.message}
+            </span>
+          </label>
+        )}
       </div>
       <div className="form-control">
         <label htmlFor="name" className="label">
@@ -91,14 +100,17 @@ export default function ProductForm({ locations }: ProductFormInterface) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
         <div className="form-control">
           <label htmlFor="price" className="label">
-            Price
+            <span>Price</span>
+            <span className="text-secondary text-sm">(USD)</span>
           </label>
           <input
             {...register('price')}
             type="number"
+            step="any"
             id="price"
             placeholder="Product price"
             min={0}
+            defaultValue={0}
             className="input input-bordered"
           />
           {errors.price && (
@@ -120,6 +132,7 @@ export default function ProductForm({ locations }: ProductFormInterface) {
             placeholder="Product quantity"
             className="input input-bordered"
             min={1}
+            defaultValue={1}
           />
           {errors.quantity && (
             <label className="label">

@@ -14,7 +14,7 @@ export default function ShoppingCartList() {
   const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
-    const newTotal = items.reduce((_, item, total) => {
+    const newTotal = items.reduce((total, item) => {
       const priceTimesAmount = item.product.price * item.amount;
       return total + priceTimesAmount;
     }, 0);
@@ -31,6 +31,11 @@ export default function ShoppingCartList() {
     <>
       {items.length ? (
         <>
+          <div>
+            <button onClick={resetItems} className="link link-error">
+              Clear all ({items.length})
+            </button>
+          </div>
           <div className="flex flex-col gap-2">
             {items.map((item) => (
               <ShoppingCartItem key={item.product.id} {...item} />
