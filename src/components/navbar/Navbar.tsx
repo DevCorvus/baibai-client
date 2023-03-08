@@ -7,6 +7,7 @@ import { HiBars3, HiPlus, HiRectangleStack } from 'react-icons/hi2';
 export default function Navbar() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
+  // TODO: Show username and icon
   return (
     <nav className="bg-primary">
       <div className="container mx-auto navbar text-slate-50 flex justify-between flex-wrap">
@@ -21,6 +22,9 @@ export default function Navbar() {
               <HiBars3 className="text-2xl" />
             </label>
             <ul className="menu dropdown-content bg-primary w-44 mt-2 rounded-b-box">
+              <li>
+                <ShoppingCartLink />
+              </li>
               <li className="bordered">
                 <Link to={'products/add'}>
                   <HiPlus className="text-2xl" />
@@ -32,9 +36,6 @@ export default function Navbar() {
                   <HiRectangleStack className="text-2xl" />
                   My products
                 </Link>
-              </li>
-              <li>
-                <ShoppingCartLink />
               </li>
               <li>
                 <LogoutButton />

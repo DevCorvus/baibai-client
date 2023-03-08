@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/navbar/Navbar';
@@ -6,6 +6,8 @@ import { useAuthRefreshQuery } from '../services/auth/auth.service';
 import AppLoading from '../components/states/AppLoading';
 import AppError from '../components/states/AppError';
 import { useAuthStore } from '../stores/auth.store';
+import { getUserProfile } from '../services/user/users.service';
+import { useUserStore } from '../stores/user.store';
 
 export default function RootPage() {
   const { data, isLoading, isError } = useAuthRefreshQuery();
@@ -13,12 +15,21 @@ export default function RootPage() {
     login: state.login,
     logout: state.logout,
   }));
+  const setProfile = useUserStore((state) => state.setProfile);
 
-  // TODO: Refresh JWT dinamically when expired (probably an Axios middleware)
-  // TODO: User profile stored after login
+  const [isProfileError, setProfileError] = useState<boolean>(false);
+
   useEffect(() => {
     if (data) {
-      login(data);
+      (async () => {
+        try {
+          login(data);
+          const userProfile = await getUserProfile();
+          setProfile(userProfile);
+        } catch (error) {
+          setProfileError(true);
+        }
+      })();
     }
   }, [data]);
 
@@ -29,7 +40,7 @@ export default function RootPage() {
   }, [isError]);
 
   if (isLoading) return <AppLoading />;
-  if (isError) return <AppError />;
+  if (isError || isProfileError) return <AppError />;
 
   return (
     <>

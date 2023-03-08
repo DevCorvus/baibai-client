@@ -15,7 +15,9 @@ export default function ShoppingCartList() {
 
   useEffect(() => {
     const newTotal = items.reduce((total, item) => {
-      const priceTimesAmount = item.product.price * item.amount;
+      const priceTimesAmount = Number(
+        (item.product.price * item.amount).toFixed(2)
+      );
       return total + priceTimesAmount;
     }, 0);
 

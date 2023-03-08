@@ -9,6 +9,7 @@ interface AuthState {
   isLoggedIn: boolean;
   login(payload: JwtPayload): void;
   logout(): void;
+  getTokens(): JwtPayload | null;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -22,5 +23,15 @@ export const useAuthStore = create<AuthState>((set) => ({
     localStorage.removeItem(ACCESS_TOKEN_KEYWORD);
     localStorage.removeItem(REFRESH_TOKEN_KEYWORD);
     set({ isLoggedIn: false });
+  },
+  getTokens(): JwtPayload | null {
+    const access_token = localStorage.getItem(ACCESS_TOKEN_KEYWORD);
+    const refresh_token = localStorage.getItem(REFRESH_TOKEN_KEYWORD);
+
+    if (access_token && refresh_token) {
+      return { access_token, refresh_token };
+    } else {
+      return null;
+    }
   },
 }));

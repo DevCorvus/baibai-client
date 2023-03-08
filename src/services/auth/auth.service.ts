@@ -34,6 +34,13 @@ export function useLoginMutation() {
   });
 }
 
+export async function authRefresh(refreshToken: string): Promise<JwtPayload> {
+  const { data } = await axiosInstance.post<JwtPayload>('/auth/refresh', {
+    refresh_token: refreshToken,
+  });
+  return data;
+}
+
 export function useAuthRefreshQuery() {
   return useQuery({
     queryKey: ['authRefresh'],
@@ -42,9 +49,7 @@ export function useAuthRefreshQuery() {
 
       if (!refreshToken) return null;
 
-      const { data } = await axiosInstance.post<JwtPayload>('/auth/refresh', {
-        refresh_token: refreshToken,
-      });
+      const data = await authRefresh(refreshToken);
 
       return data;
     },

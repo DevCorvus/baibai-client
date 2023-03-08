@@ -12,6 +12,7 @@ interface ProductFormInterface {
   locations: string[];
 }
 
+// TODO: Edit mode
 export default function ProductForm({ locations }: ProductFormInterface) {
   const navigate = useNavigate();
   const mutation = useAddProductMutation();

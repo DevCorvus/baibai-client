@@ -7,15 +7,22 @@ import {
   HiOutlineMapPin,
   HiShoppingCart,
   HiTrash,
+  HiPencilSquare,
 } from 'react-icons/hi2';
 import dayjs from 'dayjs';
 import { getStatusText } from '../../utils/getStatusText';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useShoppingCartStore } from '../../stores/shopping-cart.store';
 import ProductImage from './ProductImage';
+import { useAuthStore } from '../../stores/auth.store';
+import { useUserStore } from '../../stores/user.store';
 
 export default function ProductDetails(product: ProductExtended) {
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const userId = useUserStore((state) => state.profile?.id);
+  const navigate = useNavigate();
   const params = useParams();
+
   const {
     productAlreadyInShoppingCart,
     addProductToShoppingCart,
@@ -56,7 +63,11 @@ export default function ProductDetails(product: ProductExtended) {
             {product.price === 0 ? 'FREE' : `${product.price}$`}
           </span>
         </header>
-        <p>{product.description}</p>
+        {product.description ? (
+          <p>{product.description}</p>
+        ) : (
+          <p className="italic">No description</p>
+        )}
         <div>
           <span className="block mt-5 mb-3 font-semibold">Details</span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -78,22 +89,40 @@ export default function ProductDetails(product: ProductExtended) {
             </div>
           </div>
         </div>
-        {!productAlreadyInShoppingCart ? (
-          <button
-            onClick={() => addProductToShoppingCart(product)}
+        {product.userId !== userId ? (
+          <>
+            {!productAlreadyInShoppingCart ? (
+              <button
+                onClick={() => {
+                  if (isLoggedIn) {
+                    addProductToShoppingCart(product);
+                  } else {
+                    navigate(`/login?ref=/products/${product.id}`);
+                  }
+                }}
+                className="btn btn-block bg-primary mt-6 flex gap-2"
+              >
+                <HiShoppingCart className="text-xl" />
+                <span>Add to the cart</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => removeProductFromShoppingCart(product.id)}
+                className="btn btn-block bg-error mt-6 flex gap-2"
+              >
+                <HiTrash className="text-xl" />
+                <span>Remove from shopping cart</span>
+              </button>
+            )}
+          </>
+        ) : (
+          <Link
+            to={`/products/${product.id}/edit`}
             className="btn btn-block bg-primary mt-6 flex gap-2"
           >
-            <HiShoppingCart className="text-xl" />
-            <span>Add to the cart</span>
-          </button>
-        ) : (
-          <button
-            onClick={() => removeProductFromShoppingCart(product.id)}
-            className="btn btn-block bg-error mt-6 flex gap-2"
-          >
-            <HiTrash className="text-xl" />
-            <span>Remove from shopping cart</span>
-          </button>
+            <HiPencilSquare className="text-xl" />
+            <span>Edit</span>
+          </Link>
         )}
       </section>
     </>

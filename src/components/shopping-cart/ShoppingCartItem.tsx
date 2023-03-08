@@ -3,6 +3,7 @@ import { HiTrash, HiPlus, HiMinus } from 'react-icons/hi2';
 import { useShoppingCartStore } from '../../stores/shopping-cart.store';
 import { Link } from 'react-router-dom';
 import ProductImage from '../product/ProductImage';
+import { useMemo } from 'react';
 
 export default function ShoppingCartItem({
   product,
@@ -14,6 +15,10 @@ export default function ShoppingCartItem({
       decreaseAmount: state.decreaseAmount,
       removeFromShoppingCart: state.remove,
     }));
+
+  const calculatedPrice = useMemo(() => {
+    return (product.price * amount).toFixed(2);
+  }, [amount]);
 
   return (
     <div className="border rounded shadow-sm flex">
@@ -52,7 +57,7 @@ export default function ShoppingCartItem({
             </button>
           </div>
           <span className="w-20 text-center font-semibold">
-            {product.price === 0 ? 'FREE' : `${product.price * amount}$`}
+            {product.price === 0 ? 'FREE' : `${calculatedPrice}$`}
           </span>
           <button
             onClick={() => removeFromShoppingCart(product.id)}

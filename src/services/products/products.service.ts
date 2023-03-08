@@ -2,7 +2,6 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '../../lib/axios';
 import { Product, ProductDto, ProductExtended } from '../../interfaces/product';
 import { AxiosError } from 'axios';
-import { ACCESS_TOKEN_KEYWORD } from '../../config/constants';
 
 export function useProductListQuery() {
   return useQuery({
@@ -27,7 +26,6 @@ export function useProductDetailsQuery(id: string) {
   });
 }
 
-// TODO: Include JWT dinamically in each request that requires it
 export function useAddProductMutation() {
   return useMutation({
     mutationKey: ['addProduct'],
@@ -38,9 +36,6 @@ export function useAddProductMutation() {
         {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${localStorage.getItem(
-              ACCESS_TOKEN_KEYWORD
-            )}`,
           },
         }
       );

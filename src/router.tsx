@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 import ProductFormPage from './pages/ProductFormPage';
+import ProtectRoute from './middlewares/ProtectRoute';
 
 export const router = createBrowserRouter([
   {
@@ -23,24 +24,48 @@ export const router = createBrowserRouter([
         element: <ProductListPage />,
       },
       {
-        path: 'products/add',
-        element: <ProductFormPage />,
-      },
-      {
         path: 'products/:id',
         element: <ProductDetailsPage />,
       },
       {
+        path: 'products/add',
+        element: (
+          <ProtectRoute>
+            <ProductFormPage />
+          </ProtectRoute>
+        ),
+      },
+      {
+        path: 'products/:id/edit',
+        element: (
+          <ProtectRoute>
+            <ProductFormPage />
+          </ProtectRoute>
+        ),
+      },
+      {
         path: 'shopping-cart',
-        element: <ShoppingCartPage />,
+        element: (
+          <ProtectRoute>
+            <ShoppingCartPage />
+          </ProtectRoute>
+        ),
       },
       {
         path: 'login',
-        element: <LoginPage />,
+        element: (
+          <ProtectRoute guestOnly>
+            <LoginPage />
+          </ProtectRoute>
+        ),
       },
       {
         path: 'register',
-        element: <RegisterPage />,
+        element: (
+          <ProtectRoute guestOnly>
+            <RegisterPage />
+          </ProtectRoute>
+        ),
       },
     ],
   },

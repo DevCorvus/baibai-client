@@ -3,10 +3,12 @@ import { useLoginMutation } from '../../services/auth/auth.service';
 import { useNavigate, useLocation } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { useAuthStore } from '../../stores/auth.store';
+import { useSearchParams } from 'react-router-dom';
 
 export default function LoginForm() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const mutation = useLoginMutation();
 
   const login = useAuthStore((state) => state.login);
@@ -28,7 +30,13 @@ export default function LoginForm() {
 
             toast.success(`Welcome ${username}!`);
 
-            navigate('/');
+            const urlRef = searchParams.get('ref');
+
+            if (urlRef) {
+              navigate(urlRef);
+            } else {
+              navigate('/');
+            }
           },
         }
       );
