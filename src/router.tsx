@@ -6,13 +6,16 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ShoppingCartPage from './pages/ShoppingCartPage';
-import ProductFormPage from './pages/ProductFormPage';
 import ProtectRoute from './middlewares/ProtectRoute';
+import AddProductPage from './pages/AddProductPage';
+import EditProductPage from './pages/EditProductPage';
+import AppError from './components/states/AppError';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <RootPage />,
+    errorElement: <AppError />,
     children: [
       {
         path: '',
@@ -30,7 +33,7 @@ export const router = createBrowserRouter([
         path: 'products/add',
         element: (
           <ProtectRoute>
-            <ProductFormPage />
+            <AddProductPage />
           </ProtectRoute>
         ),
       },
@@ -38,7 +41,7 @@ export const router = createBrowserRouter([
         path: 'products/:id/edit',
         element: (
           <ProtectRoute>
-            <ProductFormPage />
+            <EditProductPage />
           </ProtectRoute>
         ),
       },

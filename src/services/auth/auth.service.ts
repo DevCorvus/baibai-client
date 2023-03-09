@@ -1,6 +1,6 @@
+import { useAuthStore } from './../../stores/auth.store';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '../../lib/axios';
-import { REFRESH_TOKEN_KEYWORD } from '../../config/constants';
 
 interface UserDto {
   username: string;
@@ -45,11 +45,11 @@ export function useAuthRefreshQuery() {
   return useQuery({
     queryKey: ['authRefresh'],
     queryFn: async () => {
-      const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEYWORD);
+      const jwt = useAuthStore.getState().getTokens();
 
-      if (!refreshToken) return null;
+      if (!jwt?.refresh_token) return null;
 
-      const data = await authRefresh(refreshToken);
+      const data = await authRefresh(jwt.refresh_token);
 
       return data;
     },

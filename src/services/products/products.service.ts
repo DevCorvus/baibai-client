@@ -48,6 +48,47 @@ export function useAddProductMutation() {
   });
 }
 
+export function useUpdateProductMutation(id: string) {
+  return useMutation({
+    mutationKey: ['updateProduct'],
+    mutationFn: async (product: ProductDto) => {
+      const { data } = await axiosInstance.put<boolean>(
+        `/products/${id}`,
+        product
+      );
+      return data;
+    },
+  });
+}
+
+export function useUpdateProductWithImageMutation(id: string) {
+  return useMutation({
+    mutationKey: ['updateProductWithImage'],
+    mutationFn: async (product: ProductDto) => {
+      const { data } = await axiosInstance.put<boolean>(
+        `/products/${id}/multipart`,
+        product,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      return data;
+    },
+  });
+}
+
+export function useDeleteProductMutation() {
+  return useMutation({
+    mutationKey: ['deleteProduct'],
+    mutationFn: async (id: string) => {
+      const { data } = await axiosInstance.delete<boolean>(`/products/${id}`);
+      return data;
+    },
+  });
+}
+
 export function useProductLocationsQuery() {
   return useQuery({
     queryKey: ['getProductLocations'],

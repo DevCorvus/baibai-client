@@ -27,7 +27,8 @@ export const productFormSchema = z.object({
     .refine((val) => {
       const file = val[0];
       return Boolean(file?.size && file?.size <= MAX_FILE_SIZE);
-    }, 'Max image size is 1MB'),
+    }, 'Max image size is 1MB')
+    .optional(),
 });
 
 export type ProductFormSchemaType = z.infer<typeof productFormSchema>;

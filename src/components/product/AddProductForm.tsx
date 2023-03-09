@@ -8,12 +8,11 @@ import { useAddProductMutation } from '../../services/products/products.service'
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-interface ProductFormInterface {
+interface AddProductFormInterface {
   locations: string[];
 }
 
-// TODO: Edit mode
-export default function ProductForm({ locations }: ProductFormInterface) {
+export default function AddProductForm({ locations }: AddProductFormInterface) {
   const navigate = useNavigate();
   const mutation = useAddProductMutation();
 
@@ -26,15 +25,17 @@ export default function ProductForm({ locations }: ProductFormInterface) {
   });
 
   const onSubmit: SubmitHandler<ProductFormSchemaType> = (data) => {
-    mutation.mutate(
-      { ...data, image: data.image[0] as File },
-      {
-        onSuccess: (product) => {
-          toast.success('Product created successfully');
-          navigate(`/products/${product.id}`);
-        },
-      }
-    );
+    if (data.image) {
+      mutation.mutate(
+        { ...data, image: data.image[0] as File },
+        {
+          onSuccess: (product) => {
+            toast.success('Product created successfully');
+            navigate(`/products/${product.id}`);
+          },
+        }
+      );
+    }
   };
 
   return (

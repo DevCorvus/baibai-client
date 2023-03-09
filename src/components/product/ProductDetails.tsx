@@ -16,6 +16,7 @@ import { useShoppingCartStore } from '../../stores/shopping-cart.store';
 import ProductImage from './ProductImage';
 import { useAuthStore } from '../../stores/auth.store';
 import { useUserStore } from '../../stores/user.store';
+import DeleteProductButton from './DeleteProductButton';
 
 export default function ProductDetails(product: ProductExtended) {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -33,10 +34,9 @@ export default function ProductDetails(product: ProductExtended) {
     removeProductFromShoppingCart: state.remove,
   }));
 
-  // TODO: Switch "Shopping cart" to "Edit product" when user is the product's owner
   return (
     <>
-      <header>
+      <header className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="p-2 bg-primary rounded-full">
             <AiOutlineUser className="text-white text-2xl" />
@@ -53,6 +53,7 @@ export default function ProductDetails(product: ProductExtended) {
             </span>
           </div>
         </div>
+        {product.userId === userId && <DeleteProductButton id={product.id} />}
       </header>
       <ProductImage
         className="w-full h-full object-cover object-center rounded-t-md"
