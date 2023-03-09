@@ -13,7 +13,6 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <RootPage />,
-    errorElement: <NotFoundPage />,
     children: [
       {
         path: '',
@@ -66,6 +65,10 @@ export const router = createBrowserRouter([
             <RegisterPage />
           </ProtectRoute>
         ),
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },

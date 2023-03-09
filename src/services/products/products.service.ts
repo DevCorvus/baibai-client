@@ -3,11 +3,15 @@ import { axiosInstance } from '../../lib/axios';
 import { Product, ProductDto, ProductExtended } from '../../interfaces/product';
 import { AxiosError } from 'axios';
 
-export function useProductListQuery() {
+export function useProductListQuery(searchParams?: URLSearchParams) {
   return useQuery({
     queryKey: ['getAllProducts'],
     queryFn: async () => {
-      const { data } = await axiosInstance.get<Product[]>('/products');
+      let url = '/products';
+
+      if (searchParams) url = url.concat('?', searchParams.toString());
+
+      const { data } = await axiosInstance.get<Product[]>(url);
       return data;
     },
   });

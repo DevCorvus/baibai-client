@@ -33,7 +33,6 @@ export default function ProductDetails(product: ProductExtended) {
     removeProductFromShoppingCart: state.remove,
   }));
 
-  // TODO: Create a link to fetch products from a specific username
   // TODO: Switch "Shopping cart" to "Edit product" when user is the product's owner
   return (
     <>
@@ -43,7 +42,12 @@ export default function ProductDetails(product: ProductExtended) {
             <AiOutlineUser className="text-white text-2xl" />
           </div>
           <div className="flex flex-col">
-            <span className="font-medium text-lg">{product.user.username}</span>
+            <Link
+              to={`/products?username=${product.user.username}`}
+              className="font-medium text-lg link link-hover"
+            >
+              {product.user.username}
+            </Link>
             <span className="text-secondary text-sm">
               {'member since ' + dayjs(product.user.createdAt).fromNow()}
             </span>

@@ -11,27 +11,38 @@ import { useUserStore } from '../stores/user.store';
 
 export default function RootPage() {
   const { data, isLoading, isError } = useAuthRefreshQuery();
-  const { login, logout } = useAuthStore((state) => ({
+  const { isLoggedIn, login, logout } = useAuthStore((state) => ({
+    isLoggedIn: state.isLoggedIn,
     login: state.login,
     logout: state.logout,
   }));
-  const setProfile = useUserStore((state) => state.setProfile);
+  const { setProfile, resetProfile } = useUserStore((state) => ({
+    setProfile: state.setProfile,
+    resetProfile: state.resetProfile,
+  }));
 
   const [isProfileError, setProfileError] = useState<boolean>(false);
 
   useEffect(() => {
     if (data) {
+      login(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
       (async () => {
         try {
-          login(data);
           const userProfile = await getUserProfile();
           setProfile(userProfile);
         } catch (error) {
           setProfileError(true);
         }
       })();
+    } else {
+      resetProfile();
     }
-  }, [data]);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     if (isError) {
