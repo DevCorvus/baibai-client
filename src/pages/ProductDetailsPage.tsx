@@ -1,6 +1,6 @@
 import ProductDetails from '../components/product/ProductDetails';
 import { useParams } from 'react-router-dom';
-import { useProductDetailsQuery } from '../services/products/products.service';
+import { useProductDetailsQuery } from '../services/products.service';
 import Loading from '../components/states/Loading';
 import Error from '../components/states/Error';
 
@@ -14,7 +14,7 @@ export default function ProductDetailsPage() {
   if (isError && error?.response?.status !== 404) return <Error />;
 
   return (
-    <div className="mx-auto max-w-lg flex flex-col gap-4 p-6 bg-base-100 rounded-md">
+    <div className="centered-fixed-container">
       {data ? (
         <ProductDetails {...data} />
       ) : (

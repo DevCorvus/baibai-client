@@ -5,7 +5,7 @@ import Loading from '../components/states/Loading';
 import {
   useProductDetailsQuery,
   useProductLocationsQuery,
-} from '../services/products/products.service';
+} from '../services/products.service';
 
 export default function EditProductPage() {
   const params = useParams();
@@ -24,7 +24,7 @@ export default function EditProductPage() {
   if (isProductError || isLocationsError) return <Error />;
 
   return (
-    <div className="mx-auto max-w-lg flex flex-col gap-4 p-8 bg-base-100 rounded-md shadow-md border-t-4 border-t-primary">
+    <div className="centered-fixed-container border-t-4 border-t-primary">
       <EditProductForm product={product} locations={locations} />
     </div>
   );

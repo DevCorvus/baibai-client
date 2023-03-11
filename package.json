@@ -23,12 +23,14 @@
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.8.1",
     "sort-by": "^1.2.0",
+    "validator": "^13.9.0",
     "zod": "^3.20.6",
     "zustand": "^4.3.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/validator": "^13.7.13",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
     "@vitejs/plugin-react-swc": "^3.0.0",

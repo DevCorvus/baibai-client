@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_URL } from '../config/constants';
 import { useAuthStore } from '../stores/auth.store';
-import { authRefresh } from '../services/auth/auth.service';
+import { authRefresh } from '../services/auth.service';
 
 export const axiosInstance = axios.create({ baseURL: API_URL });
 

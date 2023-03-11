@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.centered-fixed-container {
+  @apply mx-auto max-w-lg flex flex-col gap-4 p-6 bg-base-100 rounded-md shadow-md;
+}

@@ -1,5 +1,5 @@
 import ProductList from '../components/product/ProductList';
-import { useProductListQuery } from '../services/products/products.service';
+import { useProductListQuery } from '../services/products.service';
 import Loading from '../components/states/Loading';
 import Error from '../components/states/Error';
 import { useSearchParams } from 'react-router-dom';

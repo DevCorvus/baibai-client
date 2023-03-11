@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { useLoginMutation } from '../../services/auth/auth.service';
+import { useLoginMutation } from '../../services/auth.service';
 import { useNavigate, useLocation } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { useAuthStore } from '../../stores/auth.store';

@@ -4,7 +4,7 @@ import {
   productFormSchema,
 } from './product-form.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAddProductMutation } from '../../services/products/products.service';
+import { useAddProductMutation } from '../../services/products.service';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 

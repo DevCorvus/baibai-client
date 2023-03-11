@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useAuthRefreshQuery } from '../services/auth/auth.service';
+import { useAuthRefreshQuery } from '../services/auth.service';
 import { useAuthStore } from '../stores/auth.store';
 import { useUserStore } from '../stores/user.store';
-import { getUserProfile } from '../services/user/users.service';
+import { getUserProfile } from '../services/users.service';
 
 export function useAutoLogin() {
   const [isLoading, setLoading] = useState<boolean>(true);

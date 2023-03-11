@@ -4,7 +4,7 @@ import {
   RegisterFormSchemaType,
   registerFormSchema,
 } from './register-form.schema';
-import { useRegisterMutation } from '../../services/auth/auth.service';
+import { useRegisterMutation } from '../../services/auth.service';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-hot-toast';
 

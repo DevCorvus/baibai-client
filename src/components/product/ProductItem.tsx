@@ -21,7 +21,7 @@ export default function ProductItem({
       className="block md:max-w-xs bg-base-100 shadow-md rounded-t-md rounded-b-md relative group"
     >
       {createdAtDays <= 3 && (
-        <div className="absolute -top-3 -right-4 z-10">
+        <div className="absolute -top-3 -right-2 md:-right-4 z-10">
           <span className="bg-accent text-accent-content p-1 rounded-lg shadow">
             New
           </span>
@@ -35,7 +35,7 @@ export default function ProductItem({
           name={name}
         />
       </figure>
-      <div className="flex justify-between p-4 rounded-b-md">
+      <div className="flex justify-between p-4 rounded-b-md border-t">
         <div>
           <h3 className="font-semibold">{name}</h3>
           <span className="text-sm text-slate-500">

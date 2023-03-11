@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../../lib/axios';
-import { Product, ProductDto, ProductExtended } from '../../interfaces/product';
+import { axiosInstance } from '../lib/axios';
+import { Product, ProductDto, ProductExtended } from '../interfaces/product';
 import { AxiosError } from 'axios';
 
 export function useProductListQuery(searchParams?: URLSearchParams) {

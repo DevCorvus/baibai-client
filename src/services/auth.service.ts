@@ -1,6 +1,6 @@
-import { useAuthStore } from './../../stores/auth.store';
+import { useAuthStore } from '../stores/auth.store';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../../lib/axios';
+import { axiosInstance } from '../lib/axios';
 
 interface UserDto {
   username: string;

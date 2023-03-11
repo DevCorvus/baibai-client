@@ -43,7 +43,9 @@ export default function ShoppingCartList() {
               <ShoppingCartItem key={item.product.id} {...item} />
             ))}
           </div>
-          <span className="font-semibold text-lg">Total: {total}$</span>
+          <span className="font-semibold text-lg">
+            Total: {total.toFixed(2)}$
+          </span>
           <button
             onClick={handlePurchase}
             className="btn btn-accent flex gap-2"

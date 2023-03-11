@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { JwtPayload } from '../services/auth/auth.service';
+import { JwtPayload } from '../services/auth.service';
 import {
   ACCESS_TOKEN_KEYWORD,
   REFRESH_TOKEN_KEYWORD,

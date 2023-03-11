@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   useUpdateProductMutation,
   useUpdateProductWithImageMutation,
-} from '../../services/products/products.service';
+} from '../../services/products.service';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { ProductExtended } from '../../interfaces/product';

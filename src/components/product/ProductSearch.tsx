@@ -24,8 +24,8 @@ export default function ProductSearch() {
       <input
         onChange={(e) => setSearch(e.target.value.trim())}
         value={search}
-        className="input input-bordered"
-        placeholder="Search"
+        className="w-full input input-bordered"
+        placeholder="Search for a product"
         type="text"
       />
       <button className="btn btn-square btn-disabled bg-secondary">

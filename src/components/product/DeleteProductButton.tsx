@@ -1,5 +1,5 @@
 import { HiTrash } from 'react-icons/hi2';
-import { useDeleteProductMutation } from '../../services/products/products.service';
+import { useDeleteProductMutation } from '../../services/products.service';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../stores/user.store';
