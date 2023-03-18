@@ -14,7 +14,7 @@ export default function Navbar() {
       <div className="container mx-auto navbar text-slate-50 flex justify-between flex-wrap">
         <div>
           <Link to={'/'} className="btn btn-ghost text-xl">
-            Products
+            Baibai
           </Link>
         </div>
         {isLoggedIn && userProfile ? (

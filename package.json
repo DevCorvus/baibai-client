@@ -1,7 +1,14 @@
 {
-  "name": "client",
+  "name": "baibai-client",
+  "version": "0.0.1",
+  "description": "A React application for the Baibai API (demo)",
+  "author": {
+    "name": "Luis Portillo",
+    "email": "devcorvus.contact@gmail.com",
+    "url": "https://www.devcorvus.com/"
+  },
   "private": true,
-  "version": "0.0.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
