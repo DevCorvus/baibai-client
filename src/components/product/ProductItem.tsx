@@ -44,7 +44,7 @@ export default function ProductItem({
         </div>
         <div>
           <span className="font-semibold text-primary">
-            {price === 0 ? 'FREE' : `${price}$`}
+            {price === 0 ? 'FREE' : `$${price}`}
           </span>
           <p className="text-sm text-slate-500">{quantity} in stock</p>
         </div>

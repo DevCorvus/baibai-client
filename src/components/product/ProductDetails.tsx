@@ -65,7 +65,7 @@ export default function ProductDetails(product: ProductExtended) {
         <header className="flex justify-between items-center">
           <h3 className="text-lg font-semibold">{product.name}</h3>
           <span className="font-semibold text-lg px-2 py-0.5 rounded-full bg-primary-content text-primary">
-            {product.price === 0 ? 'FREE' : `${product.price}$`}
+            {product.price === 0 ? 'FREE' : `$${product.price}`}
           </span>
         </header>
         {product.description ? (
