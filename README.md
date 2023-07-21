@@ -1,8 +1,12 @@
-# Baibai Client
+<p align="center">
+  <img src="./baibai-icon.png" alt="Baibai Icon">
+</p>
+
+<h1 align="center">Baibai Client</h1>
 
 A React application for the [Baibai API (demo)](https://github.com/DevCorvus/baibai-api) with Vite.js, TailwindCSS, daisyUI, Zod and Zustand.
 
-> **Baibai** is a demo application where people can post items for sale but also buy those of others (kinda). Pretty much an e-commerce.
+> **Baibai** is a demo application where people can post items for sale but also buy those of others (kinda). Pretty much like an e-commerce.
 
 You are free to explore and use the code at your convenience. I hope you find it useful and thanks for reading. ❤️
 
